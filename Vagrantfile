@@ -1,5 +1,5 @@
 # Specify Vagrant version and Vagrant API version
-Vagrant.require_version ">= 1.7.4"
+Vagrant.require_version ">= 1.7.1"
 VAGRANTFILE_API_VERSION = "2"
 
 # Create and configure the VM(s)
@@ -15,14 +15,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Spin up a "host box" for use with the Docker provider
   # and then provision it with Docker
-  config.vm.box = "boot2docker-1.8.2"
+  config.vm.box = "ultron-0.1.0"
 
-  # Disable synced folders (prevents an NFS error on "vagrant up")
   config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.provision "shell", path: "provision.sh"
 
   ["vmware_fusion", "vmware_workstation"].each do |vmware|
     config.vm.provider vmware do |v, override|
-      override.vm.box_url = "https://github.com/fervo/Ultron/raw/master/boot2docker_vmware.box"
+      override.vm.box_url = "https://github.com/fervo/Ultron/releases/download/0.1.0/ultron_vmware.box"
       v.vmx["memsize"] = 1024
       v.vmx["numvcpus"] = 2
     end
