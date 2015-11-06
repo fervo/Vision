@@ -16,14 +16,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Always use Vagrant's default insecure key
   config.ssh.insert_key = false
-  config.vm.network "forwarded_port",
-    guest: 2375, host: 2375, id: "docker", disabled: true
+#  config.vm.network "forwarded_port",
+#    guest: 2375, host: 2375, id: "docker", disabled: false
   config.vm.network "private_network", :ip => "192.168.42.43"
 
   # Spin up a "host box" for use with the Docker provider
   # and then provision it with Docker
   config.vm.box = "slowe/ubuntu-trusty-x64"
+  config.vm.provision "shell", path: "provision.sh"
   config.vm.provision "docker"
+  config.vm.provision "shell", path: "docker-1.8.sh"
 
   # Disable synced folders (prevents an NFS error on "vagrant up")
   config.vm.synced_folder ".", "/vagrant", disabled: true
