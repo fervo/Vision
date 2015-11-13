@@ -31,7 +31,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder ".", "/vagrant", disabled: true
   ["vmware_fusion", "vmware_workstation"].each do |vmware|
     config.vm.provider vmware do |v, override|
-      v.vmx["memsize"] = 1024
+      v.vmx["memsize"] = 4096
       v.vmx["numvcpus"] = 2
     end
   end
