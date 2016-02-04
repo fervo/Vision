@@ -22,7 +22,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Spin up a "host box" for use with the Docker provider
   # and then provision it with Docker
-  config.vm.box = "slowe/ubuntu-trusty-x64"
+  config.vm.box = "fervo/ultron"
   config.vm.provision "shell", path: "provision.sh"
   config.vm.provision "docker"
   config.vm.provision "shell", path: "docker-1.8.sh"
