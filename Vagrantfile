@@ -2,7 +2,7 @@
 # vi: set ft=ruby :
 
 # Specify Vagrant version and Vagrant API version
-Vagrant.require_version ">= 1.6.0"
+Vagrant.require_version ">= 1.6.0", "<=1.8.1" # When the next version comes out, we can get rid of some custom provisioning cruft
 VAGRANTFILE_API_VERSION = "2"
 
 # Create and configure the VM(s)
@@ -23,9 +23,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Spin up a "host box" for use with the Docker provider
   # and then provision it with Docker
   config.vm.box = "fervo/ultron"
-  config.vm.provision "shell", path: "provision.sh"
   config.vm.provision "docker"
   config.vm.provision "shell", path: "docker-1.8.sh"
+  config.vm.provision "shell", path: "provision.sh"
 
   # Disable synced folders (prevents an NFS error on "vagrant up")
   config.vm.synced_folder ".", "/vagrant", disabled: true
