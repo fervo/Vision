@@ -27,6 +27,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.provision "shell", path: "docker-1.8.sh"
   config.vm.provision "shell", path: "provision.sh"
 
+  config.vm.synced_folder "shareddata", "/var/shareddata/", type: "rsync",
+    rsync__args: ["--archive", "--delete", "--compress", "--links", "--owner", "--group", "--chown=2000:2000"], rsync__chown: false
+
   # Disable synced folders (prevents an NFS error on "vagrant up")
   config.vm.synced_folder ".", "/vagrant", disabled: true
   ["vmware_fusion", "vmware_workstation"].each do |vmware|
